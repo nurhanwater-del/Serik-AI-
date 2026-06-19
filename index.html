@@ -1,34 +1,290 @@
 <!DOCTYPE html>
-<html lang="kk">
+<html lang="kz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Браттың ЖИ Генераторы</title>
+    <title>Serik AI Pro - Premium Generation Platform</title>
     <style>
-        body { font-family: sans-serif; background: #1a1a1a; color: white; text-align: center; padding: 40px; }
-        input, select { width: 70%; padding: 12px; margin: 10px 0; border-radius: 8px; font-size: 16px; }
-        button { padding: 12px 30px; background: #00bcd4; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        #output { margin-top: 30px; }
-        img, video { max-width: 100%; border-radius: 12px; display: none; margin: 0 auto; }
-        #status { color: #ffeb3b; display: none; }
+        :root {
+            --bg-color: #06060c;
+            --card-bg: #11111f;
+            --primary: linear-gradient(135deg, #8a2be2, #4a00e0);
+            --secondary: linear-gradient(135deg, #ff007f, #ff7b00);
+            --text: #ffffff;
+            --border: #22223b;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Премиум Шапка */
+        header {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 20px;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00f2fe, #4facfe, #ff007f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .premium-badge {
+            background: var(--secondary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+        }
+
+        /* Басты блок */
+        .hero-section {
+            text-align: center;
+            margin: 60px 0 30px;
+            padding: 0 20px;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-section p {
+            color: #6c6c84;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Генератор Карточкасы */
+        .generator-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 650px;
+            padding: 35px;
+            border-radius: 24px;
+            box-sizing: border-box;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            margin-bottom: 50px;
+        }
+
+        /* Настройкалар (Стиль таңдау) */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .option-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select, input[type="text"] {
+            background: #090911;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        select:focus, input[type="text"]:focus {
+            border-color: #7f00ff;
+            box-shadow: 0 0 10px rgba(127,0,255,0.2);
+        }
+
+        .input-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        /* Жанды Батырма */
+        .btn-glow {
+            background: linear-gradient(90deg, #7f00ff, #ff007f, #7f00ff);
+            background-size: 200% auto;
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.5s;
+            box-shadow: 0 10px 25px rgba(127, 0, 255, 0.3);
+        }
+
+        .btn-glow:hover {
+            background-position: right center;
+            box-shadow: 0 10px 30px rgba(255, 0, 127, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-glow:disabled {
+            background: #333;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Нәтиже шығатын жер */
+        .result-container {
+            margin-top: 30px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-container img {
+            max-width: 100%;
+            border-radius: 16px;
+            border: 1px solid #333;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
+        }
+
+        .download-btn {
+            background: #1f1f38;
+            border: 1px solid #3f3f5c;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .download-btn:hover {
+            background: white;
+            color: black;
+        }
+
+        /* Тілдер контейнері */
+        .lang-select {
+            background: transparent;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <h1>ЖИ Фото және Видео Генератор</h1>
-    <p>Ағылшынша сипаттама жаз:</p>
-    <input type="text" id="prompt" placeholder="Мысалы: futuristic aktobe city, neon lights..."><br>
-    
-    <select id="type">
-        <option value="photo">Фото жасау (Тегін)</option>
-        <option value="video">Видео жасау (Тегін)</option>
-    </select><br>
 
-    <button onclick="startGenerate()">Іске қосу</button>
+    <header>
+        <div class="logo">SERIK AI PRO</div>
+        <nav>
+            <a href="#" class="active" data-lang-key="navGen">Генератор</a>
+            <a href="#" onclick="openPricing()" data-lang-key="navPricing">Тарифтер (Pricing)</a>
+        </nav>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div class="premium-badge" onclick="openPricing()">Go PRO 🔥</div>
+            <select class="lang-select" onchange="changeLanguage(this.value)" id="langSelector">
+                <option value="kz">KZ</option>
+                <option value="ru">RU</option>
+                <option value="en">EN</option>
+            </select>
+        </div>
+    </header>
 
-    <div id="output">
-        <p id="status">ЖИ жұмыс істеп жатыр, күте тұр...</p>
-        <img id="resultImage" src="" alt="ЖИ Сурет">
-        <video id="resultVideo" controls autoplay loop></video>
+    <div class="hero-section">
+        <h1 data-lang-key="mainTitle">Болашақтың Жасанды Интеллекті</h1>
+        <p data-lang-key="mainSub">Кәсіби фотолар, өнер туындылары мен футуристік дизайнды бір секундта жасаңыз.</p>
+    </div>
+
+    <div class="generator-card">
+        <div class="options-grid">
+            <div class="option-box">
+                <label data-lang-key="lblStyle">Контент Стилі</label>
+                <select id="styleSelect">
+                    <option value="photorealistic">Photorealistic (Нақты фото)</option>
+                    <option value="cyberpunk">Cyberpunk (Киберпанк)</option>
+                    <option value="anime">Anime / Manga (Аниме)</option>
+                    <option value="3d-render">3D Render (Нереалды 3D)</option>
+                </select>
+            </div>
+            <div class="option-box">
+                <label data-lang-key="lblAspect">Өлшемі (Aspect Ratio)</label>
+                <select id="aspectSelect">
+                    <option value="1:1">1:1 (Квадрат - Instagram)</option>
+                    <option value="9:16">9:16 (Тік - TikTok/Reels)</option>
+                    <option value="16:9">16:9 (Кең - YouTube)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="input-box">
+            <label data-lang-key="lblPrompt">Сіздің Сипаттамаңыз (Prompt)</label>
+            <input type="text" id="promptInput" placeholder="Не салғыңыз келеді? Мысалы: Алматыдағы робот..." data-lang-placeholder="placeholder">
+        </div>
+
+        <button class="btn-glow" id="genBtn" onclick="generateArt()" data-lang-key="btnGenerate">PRO Генерация жасау</button>
+
+        <div class="result-container" id="resultBlock">
+            <img id="artImage" src="" alt="AI Generated">
+            <button class="download-btn" onclick="downloadImage()" data-lang-key="btnDownload">Суретті Жүктеу (HD)</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
