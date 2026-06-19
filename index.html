@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Браттың ЖИ Генераторы</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: white; text-align: center; padding: 40px; }
+        input, select { width: 70%; padding: 12px; margin: 10px 0; border-radius: 8px; font-size: 16px; }
+        button { padding: 12px 30px; background: #00bcd4; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        #output { margin-top: 30px; }
+        img, video { max-width: 100%; border-radius: 12px; display: none; margin: 0 auto; }
+        #status { color: #ffeb3b; display: none; }
+    </style>
+</head>
+<body>
+    <h1>ЖИ Фото және Видео Генератор</h1>
+    <p>Ағылшынша сипаттама жаз:</p>
+    <input type="text" id="prompt" placeholder="Мысалы: futuristic aktobe city, neon lights..."><br>
+    
+    <select id="type">
+        <option value="photo">Фото жасау (Тегін)</option>
+        <option value="video">Видео жасау (Тегін)</option>
+    </select><br>
+
+    <button onclick="startGenerate()">Іске қосу</button>
+
+    <div id="output">
+        <p id="status">ЖИ жұмыс істеп жатыр, күте тұр...</p>
+        <img id="resultImage" src="" alt="ЖИ Сурет">
+        <video id="resultVideo" controls autoplay loop></video>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
